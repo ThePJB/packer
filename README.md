@@ -28,6 +28,7 @@ sub categories ay ahh yer y not. stat end for each category or sub category
 nb this will be fucked for shit like if missing characters so just be careful
 maybe unicode_names2 or just anonymize font names
 mkdir -p output_dir
+codegen n
 
 ## Example
 ```
