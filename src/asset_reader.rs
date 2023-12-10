@@ -61,8 +61,8 @@ pub fn read_folder(prefix: &str, path: &str, glyphs: &str, assets: &mut Vec<Asse
                     let asset = Asset {
                         buf,
                         name,
-                        orig_x: w / 2,
-                        orig_y: h,
+                        orig_x: w as isize / 2,
+                        orig_y: h as isize,
                     };
                     assets.push(asset);
                 } else if extension == "ttf" {
@@ -82,8 +82,8 @@ pub fn read_folder(prefix: &str, path: &str, glyphs: &str, assets: &mut Vec<Asse
                         let w = r.width() as usize;
                         let h = r.height() as usize;
                         let mut buf = ImageBuffer::new(w, h);
-                        let orig_x = -r.min.x as usize;
-                        let orig_y = -r.min.y as usize;
+                        let orig_x = r.min.x as isize;
+                        let orig_y = -r.min.y as isize;
                         // yea so defos pretty confused about this shit e.g. its u32 so does that mean negatives get clipped smh. lets hope it good
                         og.draw(|x, y, c| {
                             let colour = vec4(1.0, 1.0, 1.0, c); // will it blend lmao

@@ -25,6 +25,10 @@ impl TextureAtlas {
             .map(|r| "\tPixelRect{x:".to_owned() + &r.x.to_string() + ", y:" + &r.y.to_string() + ", w:" + &r.w.to_string() + ", h:" + &r.h.to_string() + "},\n")
             .fold(String::new(), |a, b| a + &b) + "];\n";
         
+        let offsets = "pub const ORIGINS: &[(isize, isize)] = &[\n".to_owned() + &self.meta.origins.iter()
+            .map(|(orig_x, orig_y)| "\t(".to_owned() + &orig_x.to_string() + ", " + &orig_y.to_string() + "),\n")
+            .fold(String::new(), |a, b| a + &b) + "];\n";
+
         // let names = "pub const NAMES: &[&str] = &[\n".to_owned() + &self.meta.names.iter().filter(|s| !s.starts_with("__")).map(|s| "\t\"".to_owned() + &s.to_uppercase() + "\",\n")
         //     .fold(String::new(), |a, b| a + &b) + "];\n";
         
@@ -36,7 +40,7 @@ impl TextureAtlas {
             })
             .fold(String::new(), |a, b| a + &b);
 
-        "use minvect::*;\n".to_owned() + &consts + "\n" + &categories + "\n" + &clips + "\n" + &rects
+        "extern crate packer;\nuse packer::PixelRect;\nuse minvect::*;\n".to_owned() + &consts + "\n" + &categories + "\n" + &clips + "\n" + &rects + "\n" + &offsets
     }
 }
 

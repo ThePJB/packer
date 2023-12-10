@@ -19,6 +19,7 @@ pub struct TextureAtlasMetadata {
     pub names: Vec<String>,
     pub categories: Vec<Category>,
     pub glyphs: String,
+    pub origins: Vec<(isize, isize)>,
 }
 
 impl TextureAtlas {

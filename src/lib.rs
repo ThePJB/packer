@@ -6,3 +6,4 @@ mod asset_reader;
 mod asset_ir;
 
 pub use texture_atlas::*;
+pub use pixel_rect::PixelRect;

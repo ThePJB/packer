@@ -18,8 +18,8 @@ pub struct AssetIR {
 pub struct Asset {
     pub buf: ImageBuffer,
     pub name: String,
-    pub orig_x: usize,
-    pub orig_y: usize,
+    pub orig_x: isize,
+    pub orig_y: isize,
 }
 
 /// Represents an asset category so we can generate CATEGORY_START and CATEGORY_END constants
@@ -48,10 +48,12 @@ impl AssetIR {
 
         let mut names = vec![];
         let mut pixel_rects = vec![];
+        let mut origins = vec![];
 
         for asset in self.assets.iter() {
             pixel_rects.push(PixelRect{x: 0, y: 0, w: asset.buf.w, h: asset.buf.h});
             names.push(asset.name.clone());            
+            origins.push((asset.orig_x, asset.orig_y));
         }
         pack_rects(&mut pixel_rects, w, h);
         let mut buf = ImageBuffer::new(w, h);
@@ -70,6 +72,7 @@ impl AssetIR {
                 names,
                 categories: self.categories.clone(),
                 glyphs: self.glyphs.clone(),
+                origins
             }
         }
     }
